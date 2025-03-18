@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <title>Artikli</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+		 header img {
+            height: 100px;
+            width: 150px;
+        }
+        nav {
+            background-color: #eee;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px; /* horizontalni razmak*/
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap:15px;
+			margin: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .product h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 16px;
+            color: green;
+            font-weight: bold;
+        }
+        .product input {
+            width: 60px;
+            padding: 5px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .cart {
+            margin: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .cart button {
+            margin-top: 10px;/* "Dodaje razmak iznad dugmeta." */
+            padding: 10px 20px;/* "Dodaje unutrašnji razmak unutar dugmeta." */
+            font-size: 16px;/* "Postavlja veličinu fonta za dugme." */
+            background-color: #ff0000;/* "Postavlja pozadinsku boju." */
+            color: white;/* "Postavlja belu boju za tekst dugmeta." */
+            border: none;/* "Uklanja okvir dugmeta." */
+            border-radius: 5px;/* "Zaobljava ivice dugmeta." */
+            cursor: pointer;/* "Dodaje pokazivač ruke na dugme." */
+        }
+        .cart button:hover {
+            background-color: #ff0000;/* "Menja boju dugmeta kada se pređe preko njega." */
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal img {
+            max-width: 100%;
+            max-height: 100%;
+			object-fit:contain;          
+		   border-radius: 10px;
+        }
+        .modal .prev, .modal .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .modal .prev {
+            left: 10px;
+        }
+        .modal .next {
+            right: 10px;
+        }
+        .modal .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        #orderSummary {
+            margin: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="slike/logo.jpg" height="100" width="150" alt="Odzinka Vranje" title="Odzinka Vranje">
+        <h1>Artikli</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="info.html">Kontakt Informacije</a>
+        <a href="artikli.html">Artikli</a>
+        <a href="galerija.html">Promocije</a>
+    </nav>
+    <section class="products">
+    <div class="product">
+        <img src="slike/ariel.jpg" alt="Proizvod 1" onclick="openModal(0)">
+        <h3>Ariel 8.5kg</h3>
+        <p>1.299,90 RSD</p>
+        <input type="number" min="0" value="0" class="quantity" data-price="1299.90">
+    </div>
+    <div class="product">
+        <img src="slike/persil.jpg" alt="Proizvod 2" onclick="openModal(1)">
+        <h3>Persil 5kg</h3>
+        <p>839,90 RSD</p>
+        <input type="number" min="0" value="0" class="quantity" data-price="839.90">
+    </div>
+    <div class="product">
+        <img src="slike/barila.jpg" alt="Proizvod 3" onclick="openModal(2)">
+        <h3>Barila</h3>
+        <p>99,00 RSD</p>
+        <input type="number" min="0" value="0" class="quantity" data-price="99.00">
+    </div>
+    <div class="product">
+        <img src="slike/biskvit_mleko.jpg" alt="Proizvod 4" onclick="openModal(3)">
+        <h3>Biskvit Cikopie Chocolatey</h3>
+        <p>119,90 RSD</p>
+        <input type="number" min="0" value="0" class="quantity" data-price="119.90">
+    </div>
+</section>
+
+    </section>
+
+    <div class="cart">
+        <h3>Ukupno: <span id="totalPrice">0.00</span> RSD</h3>
+        <button onclick="calculateTotal()">Izračunaj ukupno</button>
+        <button onclick="generateOrder()">Prikaži narudžbinu</button>
+    </div>
+
+    <div id="orderSummary"></div>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <button class="prev" onclick="changeImage(-1)">&lt;</button>
+            <img id="modalImage" src="" alt="Uvećana slika">
+            <button class="next" onclick="changeImage(1)">&gt;</button>
+        </div>
+        <button class="close" onclick="closeModal()">&times;</button>
+    </div>
+
+    <script>
+        const images = [
+			"slike/ariel.jpg",
+			"slike/barila.jpg",
+			"slike/biskvit_mleko.jpg",
+			"slike/persil.jpg"
+        ];
+        let currentIndex = 0;
+
+        function openModal(index) {
+            currentIndex = index;
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = images[currentIndex];
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            } else if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = images[currentIndex];
+        }
+
+        function calculateTotal() {
+            const quantities = document.querySelectorAll('.quantity');
+            let total = 0;
+
+            quantities.forEach(input => {
+                const price = parseFloat(input.getAttribute('data-price'));
+                const quantity = parseInt(input.value) || 0;
+                total += price * quantity;
+            });
+
+            document.getElementById('totalPrice').innerText = total.toFixed(2);
+        }
+
+        function generateOrder() {
+            const quantities = document.querySelectorAll('.quantity');
+            const orderSummary = document.getElementById('orderSummary');
+            orderSummary.innerHTML = '<h3>Vaša narudžbina:</h3>';
+
+            quantities.forEach((input, index) => {
+                const productName = document.querySelectorAll('.product h3')[index].innerText;
+                const quantity = parseInt(input.value) || 0;
+
+                if (quantity > 0) {
+                    const price = parseFloat(input.getAttribute('data-price'));
+                    orderSummary.innerHTML += `<p>${productName} - ${quantity} kom - ${(price * quantity).toFixed(2)} RSD</p>`;
+                }
+            });
+
+            const total = document.getElementById('totalPrice').innerText;
+            orderSummary.innerHTML += `<h3>Ukupno: ${total} RSD</h3>`;
+        }
+    </script>
+</body>
+</html>

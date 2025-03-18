@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <title>Galerija</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #ff0000;
+            text-align: center;
+            padding: 10px;
+            color: white;
+        }
+        header img {
+            height: 100px;
+            width: 150px;
+        }
+        header h2 {
+            font-size: 30px;
+        }
+        nav {
+            text-align: center;
+            background-color: #eee;
+            padding: 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+        .content {
+            text-align: center;
+            margin: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .gallery-item {
+            background: white;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .gallery-item img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .gallery-item a {
+            text-decoration: none;
+            color: #ff0000;
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+        }
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        .modal .prev, .modal .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .modal .prev {
+            left: 10px;
+        }
+        .modal .next {
+            right: 10px;
+        }
+        .modal .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="slike/logo.jpg" alt="Odzinka Vranje" title="Odzinka Vranje">
+        </a>
+        <h2>Promocije</h2>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="info.html">Kontakt Informacije</a>
+        <a href="artikli.html">Artikli</a>
+        <a href="galerija.html">Promocije</a>
+    </nav>
+    <section class="content">
+        <h1>Promocije koje smo imali u tekucoj godini.</h1>
+        <p>Pogledajte naše prethodne promocije i iskoristite priliku da saznate više o našim ponudama i popustima! </p>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="slike/nagradna_igra.jpg" alt="Promocija Decembar" onclick="openModal(0)">
+                <h3>Promocija Leto 2024</h3>
+                <p>Sansa da se osvoji putovanje u vrednosti od 1000€.</p>
+                <a href="https://www.instagram.com/p/C4qJieNMdVR/?img_index=1" target="_blank">Pogledaj Objavu</a>
+            </div>
+            <div class="gallery-item">
+                <img src="slike/Promocija_kafa.jpg" alt="Promocija Novembar" onclick="openModal(1)">
+                <h3>Promocija Septembar 2024</h3>
+                <p>Specijalna ponuda i degustacija domace kafe.</p>
+                <a href="https://www.instagram.com/p/C_-im9hMTtf/" target="_blank">Pogledaj Objavu</a>
+            </div>
+            <div class="gallery-item">
+                <img src="slike/rodjendan.jpg" alt="Promocija Oktobar" onclick="openModal(2)">
+                <h3>Promocija Oktobar 2024</h3>
+                <p>SLAVIMO 2.RODJENDAN!!! Pripremili smo vam brojne akcije i sniženja, poklone iznenadjenja i još mnogo toga.Vidimo se u Nišu na adresi Jovana Ristića br.20</p>
+                <a href="https://www.instagram.com/p/DByATgDs5ky/?img_index=1" target="_blank">Pogledaj Objavu</a>
+            </div>
+        </div>
+    </section>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <button class="prev" onclick="changeImage(-1)">&lt;</button>
+            <img id="modalImage" src="" alt="Promocija">
+            <button class="next" onclick="changeImage(1)">&gt;</button>
+        </div>
+        <button class="close" onclick="closeModal()">&times;</button>
+    </div>
+
+    <script>
+        const images = [
+            "slike/nagradna_igra.jpg",
+            "slike/Promocija_kafa.jpg",
+            "slike/rodjendan.jpg"
+        ];
+
+        let currentIndex = 0;
+
+        function openModal(index) {
+            currentIndex = index;
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = images[currentIndex];
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            } else if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = images[currentIndex];
+        }
+    </script>
+</body>
+</html>
+

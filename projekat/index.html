@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <title>Odzinka Vranje</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+		 header img {
+            height: 100px;
+            width: 150px;
+        }
+        nav {
+            text-align: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+        nav a {
+            text-decoration: none;
+            color: black;
+            margin: 0 20px;
+            font-size: 18px;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .slide {
+            flex: 1 1 45%;
+            margin: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .slide h2 {
+            margin: 10px 0;
+            font-size: 32px;
+        }
+        .slide p {
+            padding: 10px;
+            line-height: 1.5;
+            font-size: 25px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="slike/logo.jpg" alt="Odzinka Vranje" title="Odzinka Vranje">
+        <h1>Odzinka Vranje</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="info.html">Kontakt Informacije</a>
+        <a href="artikli.html">Artikli</a>
+        <a href="galerija.html">Promocije</a>
+    </nav>
+    <section class="content">
+        <div class="slide">
+            <h2>Super cene</h2>
+            <img src="slike/img2.jpg" alt="Super cene" onclick="openModal(this)">
+        </div>
+        <div class="slide">
+            <h2>O nama:</h2>
+            <p>Privredno drustvo "Odzinka" DOO Vranje je pravni naslednik Privatne Trgovinske Radnje Odzinka koja je osnovana 1993. godine. Od 01.01.2000. godine svoju delatnost obavlja kao preduzece. Svoje dugogodisnje prisustvo na trzistu odrzava unapredjenjem asortimana, kvalitet usluge i pracenjem navika i potreba kupaca (potrosaca).</p>
+            <h2>Distribucija:</h2>
+            <p>Distribucionom mrezom pokrivamo kompletno domace trziste, a nasi proizvodi dolaze iz celog sveta, sve zarad unapredjenja iskustva za nase potrosace.</p>
+        </div>
+    </section>
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <img id="modalImage" src="" alt="Uvećana slika">
+    </div>
+    <script>
+        function openModal(imgElement) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imgElement.src;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
